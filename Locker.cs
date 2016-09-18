@@ -6,9 +6,9 @@ namespace LockerRiddle
 
 		public uint TimesOpened { get; set; }
 		public uint TimesClosed { get; set; }
-		public double PercentOpen => (double)TimesOpened / (double)(TimesOpened + TimesClosed) * 100.0;
+		public double PercentOpen => (double)TimesOpened / (double)(TimesOpened + TimesClosed);
 
-		public string GetState()
+		public string GetDisplayState()
 		{
 			return Open ? "Open" : "Closed";
 		}
@@ -29,7 +29,8 @@ namespace LockerRiddle
 
 		public override string ToString()
 		{
-			return $"State: {GetState()}\tTimesOpened: {TimesOpened}\tTimesClosed: {TimesClosed}\tPercentOpen: {PercentOpen}%";
+			return string.Format("State: {0}\tTimes Opened: {1}\tTimes Closed: {2}\tPercent Open: {3:P2}", 
+				GetDisplayState(), TimesOpened, TimesClosed, double.IsNaN(PercentOpen) ? 0 : PercentOpen);
 		}
 	}
 }
